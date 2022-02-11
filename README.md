@@ -1,6 +1,10 @@
 # flowUnmix
 An R package to unmix flow cytometry data
 
+Author: Christopher Hall, Babraham Institute, UK
+
+https://www.babraham.ac.uk/science-services/flow-cytometry
+
 This is an early beta (Feb 2022), I will add documentation later, but there are help files in R.
 
 
