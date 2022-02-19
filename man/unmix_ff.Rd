@@ -18,7 +18,7 @@ unmix_ff(fs, control, unmixMethod, multiplier)
 \item{negative}{A flowframe of the negative control (optional)}
 }
 \value{
-fcs file
+unmixed fcs file
 }
 \description{
 flowUnmix requires you to input a flowset of single colour controls, optionally a negative flowframe, and a flowset of samples.
@@ -26,4 +26,12 @@ It then unmixes this data and outputs a new fcs file.  Various unmixing methods 
 }
 \details{
 unmix_ff() is the main looping function that unmixes the data
+}
+\seealso{
+\code{\link[flowUnmix]{controlData}},
+\code{\link[flowUnmix]{flowUnmix}},
+\code{\link[flowUnmix]{popchooser}}
+}
+\author{
+Christopher Hall, Babraham Institute
 }

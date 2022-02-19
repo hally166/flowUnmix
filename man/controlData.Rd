@@ -4,15 +4,19 @@
 \alias{controlData}
 \title{Formatting the control data}
 \usage{
-controlData(cs, unstained)
+controlData(cs, unstained, guessPop, popCheck)
 }
 \arguments{
 \item{cs}{A flowset of single colour controls}
 
 \item{unstained}{A flowframe of the negative control (optional)}
+
+\item{guessPop}{Should flowUnmix try to select the positive population of the controls}
+
+\item{popCheck}{Print chosen spectra}
 }
 \value{
-fcs file
+control data matrix
 }
 \description{
 flowUnmix requires you to input a flowset of single colour controls, optionally a negative flowframe, and a flowset of samples.
@@ -20,4 +24,22 @@ It then unmixes this data and outputs a new fcs file.  Various unmixing methods 
 }
 \details{
 controlData() creates data matrix of the control data for importing into unmix_ff()
+}
+\examples{
+
+## load fcs files using flowCore()
+bfFiles<-list.files("C:/Users/Chris/FCS_files/", full.names = TRUE)
+controls_data<-read.flowSet(bfFiles[c(1:12)])
+negative_control<-read.FCS(bfFiles[14])
+
+#run controlData(), find positive events, and print spectra
+Control_Spectrums<-fsApply(controls_data,function(x)popChooser(singlePositives=x,negative=negative_control, guessPop= TRUE, popCheck=TRUE))
+}
+\seealso{
+\code{\link[flowUnmix]{flowUnmix}},
+\code{\link[flowUnmix]{unmix_ff}},
+\code{\link[flowUnmix]{popchooser}}
+}
+\author{
+Christopher Hall, Babraham Institute
 }

@@ -2,4 +2,5 @@
 
 export(controlData)
 export(flowUnmix)
+export(popChooser)
 export(unmix_ff)

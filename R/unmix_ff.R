@@ -10,7 +10,11 @@
 #' @param negative A flowframe of the negative control (optional)
 #' @param unmixMethod Choose an inbuilt unmixing method: lsfit (the default), ginv, qr.solve ,lm.fit, crosspod, nnls, baselm
 #' @param multiplier Most of these methods produce 0-1 values.  Multiply these to make them more palatable to your eye (default=10000)
-#' @return fcs file
+#' @return unmixed fcs file
+#' @author Christopher Hall, Babraham Institute
+#' @seealso \code{\link[flowUnmix]{controlData}},
+#' \code{\link[flowUnmix]{flowUnmix}},
+#' \code{\link[flowUnmix]{popchooser}}
 #' @export
 #'
 unmix_ff <- function(fs, control, unmixMethod, multiplier) {

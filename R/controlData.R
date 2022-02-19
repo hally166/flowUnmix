@@ -7,14 +7,33 @@
 #'
 #' @param cs A flowset of single colour controls
 #' @param unstained A flowframe of the negative control (optional)
-#' @return fcs file
+#' @param guessPop Should flowUnmix try to select the positive population of the controls
+#' @param popCheck Print chosen spectra
+#' @return control data matrix
+#' @author Christopher Hall, Babraham Institute
+#' @seealso \code{\link[flowUnmix]{flowUnmix}},
+#' \code{\link[flowUnmix]{unmix_ff}},
+#' \code{\link[flowUnmix]{popchooser}}
+#' @examples
+#'
+#' ## load fcs files using flowCore()
+#' bfFiles<-list.files("C:/Users/Chris/FCS_files/", full.names = TRUE)
+#' controls_data<-read.flowSet(bfFiles[c(1:12)])
+#' negative_control<-read.FCS(bfFiles[14])
+#'
+#' #run controlData(), find positive events, and print spectra
+#' Control_Spectrums<-fsApply(controls_data,function(x)popChooser(singlePositives=x,negative=negative_control, guessPop= TRUE, popCheck=TRUE))
 #' @export
 #'
-controlData <- function(cs,unstained) {
-  Control_Spectrums<-fsApply(cs,each_col,median)
+controlData <- function(cs, unstained, guessPop, popCheck) {
+  if(guessPop==TRUE){
+    Control_Spectrums<-fsApply(cs,function(x)popChooser(singlePositives=x,negative=unstained, popCheck=popCheck))
+  } else{
+    Control_Spectrums<-fsApply(cs,each_col,median)
+  }
   Control_Spectrums<-as.data.frame(Control_Spectrums)
-  Control_Spectrums<-Control_Spectrums[,-grep("FSC|SSC", names(Control_Spectrums))]
   Control_Spectrums<-Control_Spectrums[,grep("-A", names(Control_Spectrums))]
+  Control_Spectrums<-Control_Spectrums[,grep("SC", names(Control_Spectrums), invert=TRUE)]
 
   if(!is.null(unstained)) {
     unstainedData<-exprs(unstained)

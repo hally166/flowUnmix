@@ -10,7 +10,8 @@ flowUnmix(
   unstained = NULL,
   unmixMethod = "lsfit",
   multiplier = 10000,
-  spectrum = FALSE
+  guessPop = FALSE,
+  popCheck = FALSE
 )
 }
 \arguments{
@@ -18,21 +19,41 @@ flowUnmix(
 
 \item{cs}{A flowset of single colour controls}
 
-\item{unstained}{A flowframe of the negative control (optional)}
+\item{unstained}{A flowframe of the negative control (optional, unless guessPop = TRUE)}
 
 \item{unmixMethod}{Choose an inbuilt unmixing method: lsfit (the default), ginv, qr.solve ,lm.fit, crosspod, nnls, baselm}
 
 \item{multiplier}{Most of these methods produce 0-1 values.  Multiply these to make them more palatable to your eye (default=10000)}
 
-\item{spectrum}{TRUE uses flowSpectrum to output spectral plots}
+\item{guessPop}{Should flowUnmix try to select the positive population of the controls. Required for controls with both a positive and a negative}
 }
 \value{
-fcs file and optionally spectrum images
+unmixed fcs files and optionally spectrum images
 }
 \description{
 flowUnmix requires you to input a flowset of single colour controls, optionally a negative flowframe, and a flowset of samples.
 It then unmixes this data and outputs a new fcs file.  Various unmixing methods are available.
 }
 \details{
-This function is the wrapper function for unmix_ff() and controlData()
+This function is the wrapper function for unmix_ff() and controlData().  You should provide clean positive controls.  If you controls include negative events, use guessPop=TRUE
 }
+\examples{
+
+## load files using flowCore()
+bfFiles<-list.files("C:/Users/Chris/FCS_files/", full.names = TRUE)
+controls_data<-read.flowSet(bfFiles[c(1:12)])
+files2unmix<-read.flowSet(bfFiles[13])
+negative_control<-read.FCS(bfFiles[14])
+
+## run flowUnmix and ask it to guess the positive events
+flowUnmix(fs=all_files2unmix,cs=controls_data,unstained=negative_control, guessPop = TRUE, popCheck = TRUE)
+}
+\seealso{
+\code{\link[flowUnmix]{controlData}},
+\code{\link[flowUnmix]{unmix_ff}},
+\code{\link[flowUnmix]{popchooser}}
+}
+\author{
+Christopher Hall, Babraham Institute
+}
+\concept{flowUnmix}
