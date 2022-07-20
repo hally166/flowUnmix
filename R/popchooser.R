@@ -19,13 +19,13 @@
 popChooser <- function(singlePositives,negative,popCheck){
   control_df<-exprs(negative)
   control_df<-as.data.frame(control_df)
-  control_df<-control_df[,-grep("SC", names(control_df))]
+  control_df<-control_df[,-grep("SC|SS|FS", names(control_df))]
   control_df<-control_df[,grep("-A", names(control_df))]
   control_df<-control_df[!apply(control_df, 1, function(x) {any(x > as.numeric(keyword(negative)$`$P6R`))}),]
   todelete<-(apply(control_df, 2, median))
   sample_df<-exprs(singlePositives)
   sample_df<-as.data.frame(sample_df)
-  sample_df<-sample_df[,-grep("SC", names(sample_df))]
+  sample_df<-sample_df[,-grep("SC|SS|FS", names(sample_df))]
   sample_df<-sample_df[,grep("-A", names(sample_df))]
   sample_df<-sample_df[!apply(sample_df, 1, function(x) {any(x > as.numeric(keyword(singlePositives)$`$P6R`))}),]
 

@@ -20,7 +20,7 @@
 unmix_ff <- function(fs, control, unmixMethod, multiplier) {
   expresionData<-exprs(fs)
   expresionData<-as.data.frame(expresionData)
-  expresionData<-expresionData[,-grep("FSC|SSC", names(expresionData))]
+  expresionData<-expresionData[,-grep("SC|SS|FS", names(expresionData))]
   expresionData<-expresionData[,grep("-A", names(expresionData))]
   control<-control[names(expresionData)] #Reorder data to match the expression data - vital if using exported data from FlowJo
 

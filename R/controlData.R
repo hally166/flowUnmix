@@ -33,13 +33,13 @@ controlData <- function(cs, unstained, guessPop, popCheck) {
   }
   Control_Spectrums<-as.data.frame(Control_Spectrums)
   Control_Spectrums<-Control_Spectrums[,grep("-A", names(Control_Spectrums))]
-  Control_Spectrums<-Control_Spectrums[,grep("SC", names(Control_Spectrums), invert=TRUE)]
+  Control_Spectrums<-Control_Spectrums[,grep("SC|SS|FS", names(Control_Spectrums), invert=TRUE)]
 
   if(!is.null(unstained)) {
     unstainedData<-exprs(unstained)
     unstainedData<-apply(unstainedData,2,median)
     unstainedData<-as.data.frame(t(unstainedData))
-    unstainedData<-unstainedData[,-grep("FSC|SSC", names(unstainedData))]
+    unstainedData<-unstainedData[,-grep("SC|SS|FS", names(unstainedData))]
     unstainedData<-unstainedData[,grep("-A", names(unstainedData))]
     Control_Spectrums2<-mapply('-', Control_Spectrums, unstainedData, SIMPLIFY = TRUE)
     Control_Spectrums3<-data.frame(Control_Spectrums2)
