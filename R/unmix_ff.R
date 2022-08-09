@@ -69,7 +69,7 @@ unmix_ff <- function(fs, control, unmixMethod, multiplier) {
   lmbase<-apply(expresionData, 1, function(x)lm (x ~ t(control))$coefficients)
   lmbase<-lmbase*multiplier
   lmbase<-data.frame(t(lmbase))
-  lmbase<-lmbase[,2:11]
+  lmbase<-lmbase[,2:length(colnames(lmbase))]
   colnames(lmbase)<-rownames(control)
   unmixResult<-as.matrix(lmbase)
 }
