@@ -28,6 +28,7 @@ unmix_ff <- function(fs, control, unmixMethod, multiplier) {
   ls_corr <- lsfit(x = t(control), y = t(expresionData), intercept = FALSE)
   unmixResult <- t(ls_corr$coefficients)
   unmixResult<-unmixResult*multiplier
+  assign(ls_corr, envir = .GlobalEnv)
   }
   else if(unmixMethod=="ginv"){
   pseudoinverse<-ginv(as.matrix(t(control)))
