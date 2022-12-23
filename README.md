@@ -7,7 +7,11 @@ https://www.babraham.ac.uk/science-services/flow-cytometry
 
 I will add documentation later, but there are help files in R.
 
-```??flowUnmix```
+```
+devtools::install_github("hally166/flowUnmix")
+library(flowUnmix)
+??flowUnmix
+```
 
 Basic usage:
 
