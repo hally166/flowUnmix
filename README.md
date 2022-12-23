@@ -19,6 +19,8 @@ negative_control<-read.FCS('C:/Spectral unmixing Aurora/Unstained (Beads).fcs')
 #run unmixing
 unmix_ff(fs=files2unmix, cs=Control_Spectrums, unstained=negative_control, guessPop = TRUE, popCheck = TRUE)
 ```
-guessPop needs an unstained control.
-popCheck displays the spectral signature of the control.
-If you want autofluorcence subtraction you can add an extra signifure to the controls.
+```guessPop``` needs an unstained control.
+
+```popCheck``` displays the spectral signature of the control.
+
+If you want autofluorescence subtraction you can add an extra signifure to the controls.
