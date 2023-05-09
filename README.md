@@ -22,7 +22,7 @@ files2unmix<-read.flowSet(list.files("C:/Spectral unmixing Aurora/Group_001", fu
 negative_control<-read.FCS('C:/Spectral unmixing Aurora/Unstained (Beads).fcs')
 
 #run unmixing
-flowUnmix(fs=files2unmix, cs=Control_Spectrums, unstained=negative_control, guessPop = TRUE, popCheck = TRUE)
+flowUnmix(fs=files2unmix, cs=Control_Spectrums, unstainedctrl=negative_control, guessPop = TRUE, popCheck = TRUE)
 ```
 ```guessPop``` needs an unstained control.
 
