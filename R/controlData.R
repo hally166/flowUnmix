@@ -6,7 +6,7 @@
 #' controlData() creates data matrix of the control data for importing into unmix_ff()
 #'
 #' @param cs A flowset of single colour controls
-#' @param unstained A flowframe of the negative control (optional)
+#' @param unstainedctrl A flowframe of the negative control (optional)
 #' @param guessPop Should flowUnmix try to select the positive population of the controls
 #' @param popCheck Print chosen spectra
 #' @return control data matrix
@@ -25,18 +25,18 @@
 #' Control_Spectrums<-fsApply(controls_data,function(x)popChooser(singlePositives=x,negative=negative_control, guessPop= TRUE, popCheck=TRUE))
 #' @export
 #'
-controlData <- function(cs, unstained, guessPop, popCheck) {
-  if(guessPop==TRUE){
-    Control_Spectrums<-fsApply(cs,function(x)popChooser(singlePositives=x,negative=unstained, popCheck=popCheck))
-  } else{
+controlData <- function(cs, unstainedctrl, guessPop, popCheck) {
+  if (guessPop==TRUE) {
+    Control_Spectrums<-fsApply(cs,function(x)popChooser(singlePositives=x,negative=unstainedctrl, popCheck=popCheck))
+  } else {
     Control_Spectrums<-fsApply(cs,each_col,median)
   }
   Control_Spectrums<-as.data.frame(Control_Spectrums)
   Control_Spectrums<-Control_Spectrums[,grep("-A", names(Control_Spectrums))]
   Control_Spectrums<-Control_Spectrums[,grep("SC|SS|FS", names(Control_Spectrums), invert=TRUE)]
 
-  if(!is.null(unstained)) {
-    unstainedData<-exprs(unstained)
+  if(!is.null(unstainedctrl)) {
+    unstainedData<-exprs(unstainedctrl)
     unstainedData<-apply(unstainedData,2,median)
     unstainedData<-as.data.frame(t(unstainedData))
     unstainedData<-unstainedData[,-grep("SC|SS|FS", names(unstainedData))]
@@ -50,3 +50,4 @@ controlData <- function(cs, unstained, guessPop, popCheck) {
     Control_Spectrums<-Control_Spectrums
   }
 }
+

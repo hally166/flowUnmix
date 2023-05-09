@@ -4,12 +4,14 @@
 \alias{unmix_ff}
 \title{core unmixing functionality}
 \usage{
-unmix_ff(fs, control, unmixMethod, multiplier)
+unmix_ff(fs, control, unstainedsamp, unmixMethod, multiplier)
 }
 \arguments{
 \item{fs}{A flowSet of files to unmix}
 
 \item{control}{Matrix of the control data}
+
+\item{unstainedsamp}{A flowframe of the negative control of the sample if different from unstainedctrl (optional)}
 
 \item{unmixMethod}{Choose an inbuilt unmixing method: lsfit (the default), ginv, qr.solve ,lm.fit, crosspod, nnls, baselm}
 

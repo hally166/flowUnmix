@@ -7,7 +7,8 @@
 flowUnmix(
   fs,
   cs,
-  unstained = NULL,
+  unstainedctrl = NULL,
+  unstainedsamp = NULL,
   unmixMethod = "lsfit",
   multiplier = 10000,
   guessPop = FALSE,
@@ -19,7 +20,9 @@ flowUnmix(
 
 \item{cs}{A flowset of single colour controls}
 
-\item{unstained}{A flowframe of the negative control (optional, unless guessPop = TRUE)}
+\item{unstainedctrl}{A flowframe of the negative control (optional, unless guessPop = TRUE)}
+
+\item{unstainedsamp}{A flowframe of the negative control of the sample if different from unstainedctrl (optional)}
 
 \item{unmixMethod}{Choose an inbuilt unmixing method: lsfit (the default), ginv, qr.solve ,lm.fit, crosspod, nnls, baselm}
 
@@ -46,7 +49,7 @@ files2unmix<-read.flowSet(bfFiles[13])
 negative_control<-read.FCS(bfFiles[14])
 
 ## run flowUnmix and ask it to guess the positive events
-flowUnmix(fs=all_files2unmix,cs=controls_data,unstained=negative_control, guessPop = TRUE, popCheck = TRUE)
+flowUnmix(fs=all_files2unmix,cs=controls_data,unstainedctrl=negative_control, guessPop = TRUE, popCheck = TRUE)
 }
 \seealso{
 \code{\link[flowUnmix]{controlData}},

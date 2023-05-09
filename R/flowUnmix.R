@@ -7,7 +7,8 @@
 #'
 #' @param fs A flowSet of files to unmix
 #' @param cs A flowset of single colour controls
-#' @param unstained A flowframe of the negative control (optional, unless guessPop = TRUE)
+#' @param unstainedctrl A flowframe of the negative control (optional, unless guessPop = TRUE)
+#' @param unstainedsamp A flowframe of the negative control of the sample if different from unstainedctrl (optional)
 #' @param unmixMethod Choose an inbuilt unmixing method: lsfit (the default), ginv, qr.solve ,lm.fit, crosspod, nnls, baselm
 #' @param multiplier Most of these methods produce 0-1 values.  Multiply these to make them more palatable to your eye (default=10000)
 #' @param guessPop Should flowUnmix try to select the positive population of the controls. Required for controls with both a positive and a negative
@@ -26,16 +27,16 @@
 #' negative_control<-read.FCS(bfFiles[14])
 #'
 #' ## run flowUnmix and ask it to guess the positive events
-#' flowUnmix(fs=all_files2unmix,cs=controls_data,unstained=negative_control, guessPop = TRUE, popCheck = TRUE)
+#' flowUnmix(fs=all_files2unmix,cs=controls_data,unstainedctrl=negative_control, guessPop = TRUE, popCheck = TRUE)
 #' @export
 #'
-flowUnmix<-function(fs, cs, unstained=NULL, unmixMethod = "lsfit", multiplier=10000, guessPop = FALSE, popCheck = FALSE){
+flowUnmix<-function(fs, cs, unstainedctrl=NULL, unstainedsamp=NULL, unmixMethod = "lsfit", multiplier=10000, guessPop = FALSE, popCheck = FALSE){
   if(unmixMethod=="all"){
     list<-c("lsfit","ginv","qr.solve","lm.fit","crosspod","nnls","baselm")
     for (item in list) {
-      fsApply(fs, function(x)unmix_ff(fs=x,control=controlData(cs,unstained, guessPop, popCheck), unmixMethod = item, multiplier=multiplier))
+      fsApply(fs, function(x)unmix_ff(fs=x,control=controlData(cs,unstainedctrl, guessPop, popCheck), unstainedsamp = unstainedsamp, unmixMethod = item, multiplier=multiplier))
     }
   } else {
-    fsApply(fs, function(x)unmix_ff(fs=x,control=controlData(cs,unstained, guessPop, popCheck), unmixMethod = unmixMethod, multiplier=multiplier))
+    fsApply(fs, function(x)unmix_ff(fs=x,control=controlData(cs,unstainedctrl, guessPop, popCheck),unstainedsamp = unstainedsamp, unmixMethod = unmixMethod, multiplier=multiplier))
   }
 }

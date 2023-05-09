@@ -4,12 +4,12 @@
 \alias{controlData}
 \title{Formatting the control data}
 \usage{
-controlData(cs, unstained, guessPop, popCheck)
+controlData(cs, unstainedctrl, guessPop, popCheck)
 }
 \arguments{
 \item{cs}{A flowset of single colour controls}
 
-\item{unstained}{A flowframe of the negative control (optional)}
+\item{unstainedctrl}{A flowframe of the negative control (optional)}
 
 \item{guessPop}{Should flowUnmix try to select the positive population of the controls}
 
