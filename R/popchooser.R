@@ -35,7 +35,10 @@ popChooser <- function(singlePositives,negative,popCheck){
   tosort<-sort(means,decreasing = TRUE)[1]
   sample_pos<- sample_df[order(sample_df[,names(tosort)],decreasing = TRUE),]
   sample_pos <- sample_pos[1:200,]
-  control_values<-apply(sample_pos, 2, median)
+  control_median<-apply(sample_pos, 2, median)
+  spectra<-data.frame(t(control_median))
+  df<-data.frame(lapply(spectra, function(x)(x/max(x))))
+  control_values<-t(df)
 
   if(popCheck == TRUE){
     medians<-apply(sample_pos,2,median) #Calculate the medians and factorise the data
