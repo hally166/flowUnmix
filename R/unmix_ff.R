@@ -18,7 +18,7 @@
 #' \code{\link[flowUnmix]{popchooser}}
 #' @export
 #'
-unmix_ff <- function(fs, control, unstainedsamp, unmixMethod, multiplier) {
+unmix_ff <- function(fs, control, unstainedsamp, unmixMethod) {
   expresionData<-exprs(fs)
   expresionData<-as.data.frame(expresionData)
   expresionData<-expresionData[,-grep("SC|SS|FS", names(expresionData))]
