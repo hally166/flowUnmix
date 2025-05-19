@@ -1,7 +1,7 @@
 Package: flowUnmix
 Type: Package
 Title: Unmixes flow cytometry files
-Version: 0.3.0
+Version: 0.4.0
 Author: Christopher Hall, Babraham Institute, UK
 Maintainer: Christopher Hall <hallc@babraham.ac.uk>
 Description: Takes a single colour control flowset, optionally a negative control flowframe, and a flowset of samples and spectrally unmixes them.
