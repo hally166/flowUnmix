@@ -5,7 +5,6 @@ Author: Christopher Hall, Babraham Institute, UK
 
 https://www.babraham.ac.uk/science-services/flow-cytometry
 
-I will add documentation later, but there are help files in R.
 
 ```
 devtools::install_github("hally166/flowUnmix")
@@ -28,4 +27,4 @@ flowUnmix(fs=files2unmix, cs=Control_Spectrums, unstainedctrl=negative_control, 
 
 ```popCheck``` displays the spectral signature of the control.
 
-If you want autofluorescence subtraction you can add an extra signifure to the controls.
+If you want autofluorescence subtraction you can add an extra signature to the controls by gating the autofluorescent cells and passing them as a control.
