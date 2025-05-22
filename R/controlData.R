@@ -28,17 +28,19 @@
 controlData <- function(cs, unstainedctrl, guessPop, popCheck) {
   if (guessPop==TRUE) {
     Control_Spectrums<-fsApply(cs,function(x)popChooser(singlePositives=x,negative=unstainedctrl, popCheck=popCheck))
+    Control_Spectrums<-data.frame(Control_Spectrums,check.names = FALSE)
   } else {
     Control_Spectrums<-fsApply(cs,each_col,median)
+    Control_Spectrums<-data.frame(Control_Spectrums,check.names = FALSE)
+    Control_Spectrums<-Control_Spectrums[,grep("-A", names(Control_Spectrums))]
+    Control_Spectrums<-Control_Spectrums[,grep("SC|SS|FS", names(Control_Spectrums), invert=TRUE)]
   }
-  Control_Spectrums<-as.data.frame(Control_Spectrums)
-  Control_Spectrums<-Control_Spectrums[,grep("-A", names(Control_Spectrums))]
-  Control_Spectrums<-Control_Spectrums[,grep("SC|SS|FS", names(Control_Spectrums), invert=TRUE)]
+
 
   if(!is.null(unstainedctrl)) {
     unstainedData<-exprs(unstainedctrl)
     unstainedData<-apply(unstainedData,2,median)
-    unstainedData<-as.data.frame(t(unstainedData))
+    unstainedData<-as.data.frame(t(unstainedData),check.names = FALSE)
     unstainedData<-unstainedData[,-grep("SC|SS|FS", names(unstainedData))]
     unstainedData<-unstainedData[,grep("-A", names(unstainedData))]
     Control_Spectrums2<-mapply('-', Control_Spectrums, unstainedData, SIMPLIFY = TRUE)

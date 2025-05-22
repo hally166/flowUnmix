@@ -18,13 +18,13 @@
 
 popChooser <- function(singlePositives,negative,popCheck){
   control_df<-exprs(negative)
-  control_df<-as.data.frame(control_df)
+  control_df<-as.data.frame(control_df,check.names = FALSE)
   control_df<-control_df[,-grep("SC|SS|FS", names(control_df))]
   control_df<-control_df[,grep("-A", names(control_df))]
   control_df<-control_df[!apply(control_df, 1, function(x) {any(x > as.numeric(keyword(negative)$`$P6R`))}),]
   todelete<-(apply(control_df, 2, median))
   sample_df<-exprs(singlePositives)
-  sample_df<-as.data.frame(sample_df)
+  sample_df<-as.data.frame(sample_df,check.names = FALSE)
   sample_df<-sample_df[,-grep("SC|SS|FS", names(sample_df))]
   sample_df<-sample_df[,grep("-A", names(sample_df))]
   sample_df<-sample_df[!apply(sample_df, 1, function(x) {any(x > as.numeric(keyword(singlePositives)$`$P6R`))}),]
@@ -39,8 +39,7 @@ popChooser <- function(singlePositives,negative,popCheck){
 
   if(popCheck == TRUE){
     medians<-apply(sample_pos,2,median) #Calculate the medians and factorise the data
-    df<-data.frame(medians/max(medians))
-    df[df<0] <- 0.01
+    df<-data.frame((medians-min(medians))/(max(medians)-min(medians)),check.names = FALSE)
     df<-cbind(rownames(df),df)
     df$`rownames(df)`<-factor(df$`rownames(df)`, levels = df$`rownames(df)`)
     if(singlePositives@description$`$CYT`=="Bigfoot"){
@@ -49,7 +48,7 @@ popChooser <- function(singlePositives,negative,popCheck){
       df[,'rownames(df)']<-flowfile_colnames
       df<-df[,order(names(df))]
     }
-    p<- ggplot(data=df, aes(x=df[,'rownames(df)'], y=df[,'medians.max.medians.'], group=1)) +
+    p<- ggplot(data=df, aes(x=df[,'rownames(df)'], y=df[,'(medians - min(medians))/(max(medians) - min(medians))'], group=1)) +
           geom_line(size=1)+
           geom_point(size=2)+
           theme_bw() +
